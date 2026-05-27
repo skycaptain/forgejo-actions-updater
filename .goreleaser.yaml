@@ -1,0 +1,41 @@
+# Skycaptain: Forgejo Actions Updater
+#
+# SPDX-License-Identifier: BSD-3-Clause
+#
+---
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
+version: 2
+
+project_name: forgejo-actions-updater
+
+snapshot:
+  version_template: "{{ incpatch .Version }}"
+
+builds:
+  - id: forgejo-actions-updater
+    binary: forgejo-actions-updater
+    env:
+      - CGO_ENABLED=0
+    goarch:
+      - amd64
+      - arm64
+    ignore:
+      - goos: windows
+        goarch: arm64
+
+archives:
+  - # This name template makes the OS and Arch compatible with the results of `uname`.
+    # Check https://nfpm.goreleaser.com/goarch-to-pkg/ when adding new OS/Arch combinations
+    name_template: >-
+      {{ .ProjectName }}_{{ .Tag }}_{{ .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else }}{{ .Arch }}{{ end }}
+      {{- if .Arm }}v{{ .Arm }}{{ end }}
+    files:
+      - LICENSE
+    format_overrides:
+      - goos: windows
+        formats: [zip]
+
+checksum:
+  name_template: checksums.txt

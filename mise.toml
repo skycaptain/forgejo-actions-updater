@@ -1,0 +1,22 @@
+# Skycaptain: Forgejo Actions Updater
+#
+# SPDX-License-Identifier: BSD-3-Clause
+#
+[tools]
+go = "1.26.3"
+pre-commit = "4.6.0"
+golangci-lint = "2.12.2"
+goreleaser = "2.16.0"
+"npm:actions-up" = "1.14.2"
+
+[vars]
+dist_dir = "{{ config_root }}/dist"
+
+[tasks."dev:lint"]
+run = 'pre-commit run --all-files --verbose'
+
+[tasks."dev:build"]
+run = 'goreleaser build --auto-snapshot --single-target --clean'
+
+[tasks."dev:test"]
+run = 'go test -cover -v ./...'

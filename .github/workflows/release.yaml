@@ -1,0 +1,64 @@
+# Skycaptain: Forgejo Actions Updater
+#
+# SPDX-License-Identifier: BSD-3-Clause
+#
+---
+name: Release
+
+"on":
+  push:
+    branches:
+      - main
+      # Match maintenance branches in N.x and N.M.x format (e.g. 1.x, 1.2.x).
+      - "[0-9]+.x"
+      - "[0-9]+.[0-9]+.x"
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  semantic-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # to be able to publish a GitHub release
+      issues: write # to be able to comment on released issues
+      pull-requests: write # to be able to comment on released pull requests
+    outputs:
+      new_release_published: ${{ steps.semantic-release.outputs.new_release_published }}
+      new_release_version: ${{ steps.semantic-release.outputs.new_release_version }}
+      new_release_notes: ${{ steps.semantic-release.outputs.new_release_notes }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Run Semantic Release
+        uses: cycjimmy/semantic-release-action@b12c8f6015dc215fe37bc154d4ad456dd3833c90 # v6.0.0
+        id: semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          extra_plugins: |
+            conventional-changelog-conventionalcommits
+
+  # GitHub prevents triggering workflows from other workflows to avoid infinite loops, so we need
+  # to explicitly trigger the build-release workflow after a successful release
+  trigger-build-release:
+    needs: semantic-release
+    runs-on: ubuntu-latest
+    if: ${{ needs.semantic-release.outputs.new_release_published == 'true' }}
+    permissions:
+      actions: write # to be able to trigger the build-release workflow
+    steps:
+      - uses: benc-uk/workflow-dispatch@31e2b3319479a63f0ab15bf800eff9e913504e26 # v1.3.2
+        with:
+          workflow: build-release.yaml
+          ref: refs/tags/v${{ needs.semantic-release.outputs.new_release_version }}
+          inputs: |
+            {
+              "release_version": "${{ needs.semantic-release.outputs.new_release_version }}",
+              "release_notes": ${{ toJSON(needs.semantic-release.outputs.new_release_notes) }}
+            }

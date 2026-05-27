@@ -1,0 +1,31 @@
+# Skycaptain: Forgejo Actions Updater
+#
+# SPDX-License-Identifier: BSD-3-Clause
+#
+---
+version: "2"
+
+run:
+  issues-exit-code: 1
+  tests: true
+
+linters:
+  default: all
+  disable:
+    - cyclop
+    - depguard
+    - exhaustruct
+    - funlen
+    - gocognit
+    - godox
+    - gomodguard # Deprecated
+    - gosec
+    - ireturn
+    - lll
+    - maintidx
+    - perfsprint
+    - varnamelen
+    - wsl # Deprecated
+  settings:
+    goconst:
+      ignore-tests: true
