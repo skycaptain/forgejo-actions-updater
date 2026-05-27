@@ -1,5 +1,22 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:best-practices"],
+  "extends": [
+    "config:best-practices",
+    ":automergeDisabled",
+    ":combinePatchMinorReleases",
+    ":ignoreUnstable",
+    ":rebaseStalePrs",
+    ":renovatePrefix",
+    ":semanticCommits"
+  ],
+  "packageRules": [
+    {
+      "description": "Group all third-party non-major Go module updates",
+      "groupName": "third-party go modules",
+      "matchManagers": ["gomod"],
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "semanticCommitType": "fix"
+    }
+  ],
   "postUpdateOptions": ["gomodTidy", "gomodUpdateImportPaths"]
 }
