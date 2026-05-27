@@ -17,8 +17,8 @@ import (
 	"strings"
 	"text/template"
 
+	"charm.land/log/v2"
 	"github.com/Masterminds/semver/v3"
-	"github.com/charmbracelet/log"
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/config"
 	"github.com/go-git/go-git/v5/plumbing/transport"
