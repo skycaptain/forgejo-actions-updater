@@ -16,6 +16,11 @@
       "matchManagers": ["gomod"],
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "semanticCommitType": "fix"
+    },
+    {
+      "description": "Group all GitHub Actions updates",
+      "groupName": "github-actions",
+      "matchManagers": ["github-actions"]
     }
   ],
   "postUpdateOptions": ["gomodTidy", "gomodUpdateImportPaths"]
