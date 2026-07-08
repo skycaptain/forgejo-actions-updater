@@ -9,6 +9,9 @@ golangci-lint = "2.12.2"
 goreleaser = "2.16.0"
 "npm:actions-up" = "1.14.2"
 
+[settings]
+lockfile = true
+
 [vars]
 dist_dir = "{{ config_root }}/dist"
 
