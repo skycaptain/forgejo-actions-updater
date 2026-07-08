@@ -21,6 +21,12 @@
       "description": "Group all GitHub Actions updates",
       "groupName": "github-actions",
       "matchManagers": ["github-actions"]
+    },
+    {
+      "description": "Group all mise tools except for go",
+      "groupName": "mise tools",
+      "matchManagers": ["mise"],
+      "excludePackagePatterns": ["^go$"]
     }
   ],
   "postUpdateOptions": ["gomodTidy", "gomodUpdateImportPaths"]
