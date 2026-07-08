@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: BSD-3-Clause
 #
 [tools]
-go = "1.26.3"
+go = "1.26.5"
 pre-commit = "4.6.0"
 golangci-lint = "2.12.2"
 goreleaser = "2.16.0"
