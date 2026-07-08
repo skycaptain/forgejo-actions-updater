@@ -12,7 +12,7 @@ goreleaser = "2.16.0"
 [vars]
 dist_dir = "{{ config_root }}/dist"
 
-[tasks."dev:lint"]
+[tasks."dev:check"]
 run = 'pre-commit run --all-files --verbose'
 
 [tasks."dev:build"]
