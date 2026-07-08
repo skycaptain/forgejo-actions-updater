@@ -26,7 +26,9 @@
       "description": "Group all mise tools except for go",
       "groupName": "mise tools",
       "matchManagers": ["mise"],
-      "excludePackagePatterns": ["^go$"]
+      "matchPackageNames": [
+        "!/^go$/"
+      ]
     }
   ],
   "postUpdateOptions": ["gomodTidy", "gomodUpdateImportPaths"]
