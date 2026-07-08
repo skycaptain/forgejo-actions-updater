@@ -166,35 +166,34 @@ func (up *Updater) UpdateWorkflows(searchPath string) error {
 	return nil
 }
 
-// findGitRoot walks up the directory tree from startPath until it finds a directory containing a
-// .git entry (directory or file, the latter supporting git submodules).
+// findGitRoot returns the worktree root of the git repository that contains startPath.
+//
+// It uses go-git with DetectDotGit so that it walks up the directory tree automatically, the same
+// way `git rev-parse --show-toplevel` would.
 func findGitRoot(startPath string) (string, error) {
 	abs, err := filepath.Abs(startPath)
 	if err != nil {
 		return "", fmt.Errorf("failed to resolve path %s: %w", startPath, err)
 	}
 
-	dir := abs
-
-	for {
-		_, err = os.Stat(filepath.Join(dir, ".git"))
-		if err == nil {
-			return dir, nil
-		}
-
-		parent := filepath.Dir(dir)
-		if parent == dir {
-			return "", fmt.Errorf("%w from %s", errNoGitRepositoryFound, startPath)
-		}
-
-		dir = parent
+	repo, err := git.PlainOpenWithOptions(abs, &git.PlainOpenOptions{DetectDotGit: true})
+	if err != nil {
+		return "", fmt.Errorf("%w from %s", errNoGitRepositoryFound, startPath)
 	}
+
+	wt, err := repo.Worktree()
+	if err != nil {
+		return "", fmt.Errorf("failed to get worktree for %s: %w", startPath, err)
+	}
+
+	return wt.Filesystem.Root(), nil
 }
 
-// findForgejoWorkflows returns all YAML files under <root>/.forgejo/workflows/. If searchPath is
-// empty the project root is auto-detected by walking up from the current working directory until a
-// .git entry is found. If searchPath is explicitly provided it is used directly without any
-// git-root traversal.
+// findForgejoWorkflows returns all YAML files under <root>/.forgejo/workflows/.
+//
+// If searchPath is empty the project root is auto-detected by walking up from the current working
+// directory until a .git entry is found. If searchPath is explicitly provided it is used directly
+// without any git-root traversal.
 func (up *Updater) findForgejoWorkflows(searchPath string) ([]string, error) {
 	var root string
 

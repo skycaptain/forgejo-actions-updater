@@ -6,6 +6,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/go-git/go-git/v5"
 	"github.com/jdx/go-netrc"
 )
 
@@ -142,10 +143,10 @@ func TestStringReplacement(t *testing.T) {
 func TestFindForgejoWorkflows(t *testing.T) {
 	tempDir := t.TempDir()
 
-	// Place a .git marker so findGitRoot resolves tempDir as the project root.
-	err := os.MkdirAll(filepath.Join(tempDir, ".git"), 0o755)
+	// Initialize a real git repo so findGitRoot can open it with go-git.
+	_, err := git.PlainInit(tempDir, false)
 	if err != nil {
-		t.Fatalf("Failed to create .git dir: %v", err)
+		t.Fatalf("Failed to init git repo: %v", err)
 	}
 
 	workflowsDir := filepath.Join(tempDir, ".forgejo", "workflows")
@@ -217,10 +218,10 @@ func TestFindForgejoWorkflowsMissingDir(t *testing.T) {
 	t.Parallel()
 	tempDir := t.TempDir()
 
-	// .git marker so findGitRoot resolves without error
-	err := os.MkdirAll(filepath.Join(tempDir, ".git"), 0o755)
+	// Initialize a real git repo so findGitRoot can open it with go-git.
+	_, err := git.PlainInit(tempDir, false)
 	if err != nil {
-		t.Fatalf("Failed to create .git dir: %v", err)
+		t.Fatalf("Failed to init git repo: %v", err)
 	}
 
 	updater := &Updater{}
