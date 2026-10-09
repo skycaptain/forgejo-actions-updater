@@ -15,6 +15,7 @@ linters:
     - cyclop
     - depguard
     - exhaustruct
+    - exhaustruct_v5 # TODO: Good linter, but needs to be fixed in the codebase first
     - funlen
     - gocognit
     - godox
