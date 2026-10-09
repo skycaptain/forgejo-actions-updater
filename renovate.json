@@ -4,10 +4,12 @@
     "config:best-practices",
     ":automergeDisabled",
     ":combinePatchMinorReleases",
+    ":enablePreCommit",
     ":ignoreUnstable",
     ":rebaseStalePrs",
     ":renovatePrefix",
-    ":semanticCommits"
+    ":semanticCommits",
+    "helpers:pinGitHubActionDigests"
   ],
   "packageRules": [
     {
@@ -26,9 +28,7 @@
       "description": "Group all mise tools except for go",
       "groupName": "mise tools",
       "matchManagers": ["mise"],
-      "matchPackageNames": [
-        "!/^go$/"
-      ]
+      "matchPackageNames": ["!/^go$/"]
     }
   ],
   "postUpdateOptions": ["gomodTidy", "gomodUpdateImportPaths"]
