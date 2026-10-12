@@ -1,35 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:best-practices",
-    ":automergeDisabled",
-    ":combinePatchMinorReleases",
-    ":enablePreCommit",
-    ":ignoreUnstable",
-    ":rebaseStalePrs",
-    ":renovatePrefix",
-    ":semanticCommits",
-    "helpers:pinGitHubActionDigests"
-  ],
-  "packageRules": [
-    {
-      "description": "Group all third-party non-major Go module updates",
-      "groupName": "third-party go modules",
-      "matchManagers": ["gomod"],
-      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
-      "semanticCommitType": "fix"
-    },
-    {
-      "description": "Group all GitHub Actions updates",
-      "groupName": "github-actions",
-      "matchManagers": ["github-actions"]
-    },
-    {
-      "description": "Group all mise tools except for go",
-      "groupName": "mise tools",
-      "matchManagers": ["mise"],
-      "matchPackageNames": ["!/^go$/"]
-    }
-  ],
-  "postUpdateOptions": ["gomodTidy", "gomodUpdateImportPaths"]
+    "github>skycaptain/renovate-config"
+  ]
 }
