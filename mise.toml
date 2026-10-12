@@ -12,9 +12,6 @@ goreleaser = "2.18.3"
 [settings]
 lockfile = true
 
-[vars]
-dist_dir = "{{ config_root }}/dist"
-
 [tasks."dev:check"]
 run = 'pre-commit run --all-files --verbose'
 
