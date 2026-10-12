@@ -1,5 +1,7 @@
 # Skycaptain: Forgejo Actions Updater
 #
+# See https://editorconfig.org for usage.
+#
 # SPDX-License-Identifier: BSD-3-Clause
 #
 root = true
