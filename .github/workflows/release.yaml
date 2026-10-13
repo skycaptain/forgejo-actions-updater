@@ -41,8 +41,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          # FIXME: conventionalcommits is pinned as later versions require
+          # conventional-changelog-writer@9, which semantic-release does not ship yet.
+          # See https://github.com/semantic-release/release-notes-generator/pull/1026
           extra_plugins: |
-            conventional-changelog-conventionalcommits
+            conventional-changelog-conventionalcommits@10.3.0
 
   # GitHub prevents triggering workflows from other workflows to avoid infinite loops, so we need
   # to explicitly trigger the build-release workflow after a successful release
