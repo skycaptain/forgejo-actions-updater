@@ -3,9 +3,9 @@
 # SPDX-License-Identifier: BSD-3-Clause
 #
 ---
-name: Build on Pull Request
+name: Pull Request
 
-"on": [pull_request]
+"on": [pull_request, merge_group]
 
 jobs:
   commitlint:
