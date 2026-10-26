@@ -6,9 +6,9 @@
 go = "1.27.3"
 pre-commit = "4.7.0"
 golangci-lint = "2.15.0"
-goreleaser = "2.18.3"
+goreleaser = "2.19.0"
 "npm:actions-up" = "1.21.0"
-python = "3.15.0"
+python = "3.15.2"
 
 [settings]
 lockfile = true
