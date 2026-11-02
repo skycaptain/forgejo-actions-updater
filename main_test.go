@@ -139,7 +139,6 @@ func TestStringReplacement(t *testing.T) {
 	}
 }
 
-//nolint:paralleltest // test using t.Setenv, t.Chdir, or cryptotest.SetGlobalRandom can not use t.Parallel
 func TestFindForgejoWorkflows(t *testing.T) {
 	tempDir := t.TempDir()
 
