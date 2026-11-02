@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/go-git/go-git/v5"
-	"github.com/jdx/go-netrc"
+	git "github.com/go-git/go-git/v5"
+	netrc "github.com/jdx/go-netrc"
 )
 
 const testRepoURL = "https://example.com/org/repo"

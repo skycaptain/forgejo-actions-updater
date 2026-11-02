@@ -17,16 +17,16 @@ import (
 	"strings"
 	"text/template"
 
-	"charm.land/log/v2"
-	"github.com/Masterminds/semver/v3"
-	"github.com/go-git/go-git/v5"
+	log "charm.land/log/v2"
+	semver "github.com/Masterminds/semver/v3"
+	git "github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/config"
 	"github.com/go-git/go-git/v5/plumbing/transport"
 	"github.com/go-git/go-git/v5/plumbing/transport/http"
 	"github.com/go-git/go-git/v5/plumbing/transport/ssh"
 	"github.com/go-git/go-git/v5/storage/memory"
-	"github.com/goccy/go-yaml"
-	"github.com/jdx/go-netrc"
+	yaml "github.com/goccy/go-yaml"
+	netrc "github.com/jdx/go-netrc"
 	"golang.org/x/crypto/ssh/knownhosts"
 )
 
