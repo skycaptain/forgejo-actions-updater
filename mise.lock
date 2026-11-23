@@ -131,7 +131,7 @@ provenance = "github-attestations"
 
 [[tools."npm:actions-up"]]
 version = "2.0.0"
-aube = { path = ".mise/locks/npm-actions-up/2.0.0", digest = "sha256:debc0664a498eb73cc24c8660ded6b54a2367dc206e995b6d3295f61e5083e65" }
+aube = { path = ".mise/locks/npm-actions-up/2.0.0", digest = "sha256:d853137bed21210f3948e779f54a312c672ebae3b1064dbe3f8d9bd0529130f9" }
 backend = "npm:actions-up"
 specifiers = ["2.0.0"]
 
@@ -139,6 +139,7 @@ specifiers = ["2.0.0"]
 version = "4.7.0"
 backend = "aqua:pre-commit/pre-commit"
 specifiers = ["4.7.0"]
+unsupported_platforms = ["windows-x64"]
 
 [tools.pre-commit."platforms.linux-arm64"]
 checksum = "sha256:393488513aed286d7a5a978a1fe79b2f5a8802927242a2d241ff10c1a8e8c885"
